@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+#root {
+  height: 100svh;
+  position: relative;
+}
