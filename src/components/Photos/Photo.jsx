@@ -9,6 +9,7 @@ const Photo = ({ photo }) => {
   });
 
   const handlePhotoClick = (e) => {
+    console.log(e);
     if (openDropdown) {
       setOpenDropdown(false);
     } else {
@@ -18,9 +19,12 @@ const Photo = ({ photo }) => {
   };
 
   return (
-    <div>
-      <img src={photo} alt="Where's Waldo photo" onClick={handlePhotoClick} />;
-      <DropdownMenu openDropdown={openDropdown}></DropdownMenu>
+    <div className="w-fit">
+      <img src={photo} alt="Where's Waldo photo" onClick={handlePhotoClick} />
+      <DropdownMenu
+        openDropdown={openDropdown}
+        coordinates={clickCoordinates}
+      ></DropdownMenu>
     </div>
   );
 };
