@@ -1,11 +1,10 @@
-const DropdownMenu = ({ openDropdown, coordinates }) => {
+const DropdownMenu = ({ coordinates }) => {
   return (
     <div
-      className={`${
-        openDropdown ? "block" : "hidden inset-0"
-      } absolute inset-0 w-fit h-fit`}
+      className="absolute w-fit h-fit border bg-white"
       style={{
-        transform: `translate(${coordinates.x}px, ${coordinates.y}px)`,
+        top: `${coordinates.y + 30}px`,
+        left: `${coordinates.x + 20}px`,
       }}
     >
       <p>Character image here</p>

@@ -1,9 +1,9 @@
-import Photo from "./components/Photos/Photo";
+import GameStart from "../src/pages/GameStart";
 
 function App() {
   return (
     <>
-      <Photo photo="/pixelWorld.jpeg"></Photo>
+      <GameStart photo="/gamingVerse.jpg"></GameStart>
     </>
   );
 }
