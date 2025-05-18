@@ -6,7 +6,6 @@ const Photo = ({ photo }) => {
   const [clickCoordinates, setClickCoordinates] = useState({
     x: null,
     y: null,
-    scrollY: null,
   });
   const [scrollCoordinates, setScrollCoordinates] = useState({
     x: null,
@@ -17,8 +16,8 @@ const Photo = ({ photo }) => {
     const attachSetterCoordinates = () => {
       setScrollCoordinates({ x: window.scrollX, y: window.scrollY });
     };
-
     window.addEventListener("scroll", attachSetterCoordinates);
+
     return () => {
       window.removeEventListener("scroll", attachSetterCoordinates);
     };
@@ -42,7 +41,7 @@ const Photo = ({ photo }) => {
         src={photo}
         alt="Where's Waldo photo"
         onClick={handlePhotoClick}
-        className="w-full max-w-[1200px] h-full"
+        className="w-full max-w-[1200px] h-full rounded-lg"
       />
       {openDropdown && (
         <DropdownMenu coordinates={clickCoordinates}></DropdownMenu>

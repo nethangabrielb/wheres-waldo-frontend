@@ -1,9 +1,10 @@
 import GameStart from "../src/pages/GameStart";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <>
-      <GameStart photo="/gamingVerse.jpg"></GameStart>
+      <Home></Home>
     </>
   );
 }
