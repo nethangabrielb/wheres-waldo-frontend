@@ -17,7 +17,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col bg-main text-tertiary">
       <Header></Header>
       <main className="h-fit flex flex-col items-center text-4xl p-10 gap-10">
         <h1>Select a setting</h1>

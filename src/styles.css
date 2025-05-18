@@ -8,3 +8,10 @@ body {
   height: 100svh;
   position: relative;
 }
+
+@theme {
+  --color-main: #f8f4e1;
+  --color-secondary: #feba17;
+  --color-tertiary: #74512d;
+  --color-last: #4e1f00;
+}
