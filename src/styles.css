@@ -14,4 +14,15 @@ body {
   --color-secondary: #feba17;
   --color-tertiary: #74512d;
   --color-last: #4e1f00;
+
+  --animate-sliding: sliding 1s linear infinite;
+
+  @keyframes sliding {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translate(100%);
+    }
+  }
 }

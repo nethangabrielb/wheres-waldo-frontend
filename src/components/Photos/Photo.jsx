@@ -1,7 +1,8 @@
 import DropdownMenu from "./DropdownMenu";
 import { useState, useEffect } from "react";
 
-const Photo = ({ photo }) => {
+const Photo = ({ game }) => {
+  console.log(game);
   const [openDropdown, setOpenDropdown] = useState(false);
   const [clickCoordinates, setClickCoordinates] = useState({
     x: null,
@@ -38,7 +39,7 @@ const Photo = ({ photo }) => {
   return (
     <>
       <img
-        src={photo}
+        src={game.url}
         alt="Where's Waldo photo"
         onClick={handlePhotoClick}
         className="w-full max-w-[1200px] h-full rounded-lg"
