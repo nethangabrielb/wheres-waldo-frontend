@@ -10,9 +10,25 @@ const GameStart = () => {
     setGame(JSON.parse(localStorage.getItem("game")));
   }
 
+  console.log(gameLocalStorage);
+
   return (
     <>
-      <section className="flex justify-center items-center px-20 py-28 overflow-auto">
+      <p>Characters to find:</p>
+      <div className="flex gap-10">
+        {Object.keys(gameLocalStorage).length !== 0 &&
+          Object.values(gameLocalStorage.toFind).map((gameUrl, i) => {
+            return (
+              <img
+                src={gameUrl.url}
+                key={i}
+                id={i}
+                className="w-[58px] h-auto"
+              />
+            );
+          })}
+      </div>
+      <section className="flex justify-center items-center px-20 py-10 overflow-auto">
         <Photo game={gameLocalStorage}></Photo>
       </section>
     </>
