@@ -10,19 +10,17 @@ const GameStart = () => {
     setGame(JSON.parse(localStorage.getItem("game")));
   }
 
-  console.log(gameLocalStorage);
-
   return (
     <>
       <p>Characters to find:</p>
       <div className="flex gap-10">
         {Object.keys(gameLocalStorage).length !== 0 &&
-          Object.values(gameLocalStorage.toFind).map((gameUrl, i) => {
+          gameLocalStorage.Character.map((char) => {
             return (
               <img
-                src={gameUrl.url}
-                key={i}
-                id={i}
+                src={char.url}
+                key={char.id}
+                id={char.id}
                 className="w-[58px] h-auto"
               />
             );

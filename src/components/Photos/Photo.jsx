@@ -2,7 +2,6 @@ import DropdownMenu from "./DropdownMenu";
 import { useState, useEffect } from "react";
 
 const Photo = ({ game }) => {
-  console.log(game);
   const [openDropdown, setOpenDropdown] = useState(false);
   const [clickCoordinates, setClickCoordinates] = useState({
     x: null,
@@ -30,11 +29,14 @@ const Photo = ({ game }) => {
     } else {
       setOpenDropdown(true);
     }
+
     setClickCoordinates({
       x: e.clientX,
       y: e.clientY + scrollCoordinates.y,
     });
   };
+
+  console.log(clickCoordinates);
 
   return (
     <>
@@ -45,7 +47,10 @@ const Photo = ({ game }) => {
         className="w-full max-w-[1200px] h-full rounded-lg"
       />
       {openDropdown && (
-        <DropdownMenu coordinates={clickCoordinates}></DropdownMenu>
+        <DropdownMenu
+          coordinates={clickCoordinates}
+          characters={game.Character}
+        ></DropdownMenu>
       )}
     </>
   );
