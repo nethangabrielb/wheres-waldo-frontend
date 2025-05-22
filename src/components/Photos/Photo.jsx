@@ -31,9 +31,7 @@ const Photo = ({ game }) => {
     const naturalVal = { w: photo.naturalWidth, h: photo.naturalHeight };
 
     // Divide click coordinates with rendered coordinates
-    // and Subtract left and top values
-    // to remove viewport in the calculation
-    // and multiply with natural values
+    // and multiply with natural values to normalize coordinates
     const normalizedX = (clickCoordinates.x / renderedVal.w) * naturalVal.w;
     const normalizedY = (clickCoordinates.y / renderedVal.h) * naturalVal.h;
 
@@ -66,7 +64,7 @@ const Photo = ({ game }) => {
         src={game.url}
         alt="Where's Waldo photo"
         onClick={handlePhotoClick}
-        className="w-full max-w-[1200px] h-full rounded-lg"
+        className="w-full max-w-[1400px] h-full rounded-lg"
         ref={photoRef}
       />
       {openDropdown && (

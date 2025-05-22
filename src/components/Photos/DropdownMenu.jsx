@@ -5,10 +5,11 @@ const DropdownMenu = ({
 }) => {
   return (
     <div
-      className="absolute w-200px h-auto border gap-2 bg-secondary rouned-lg left-0 top-0"
+      className="absolute w-fit h-auto border gap-2 bg-secondary rouned-lg top-0 left-0 isolate z-100"
       style={{
-        top: `${coordinates.y}px`,
-        left: `${coordinates.x}px`,
+        transform: `translate(${coordinates.x + 10}px, ${
+          coordinates.y + 10
+        }px)`,
       }}
     >
       {characters.map((char) => {
