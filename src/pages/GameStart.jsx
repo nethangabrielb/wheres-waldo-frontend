@@ -16,6 +16,7 @@ const GameStart = () => {
       <div className="flex gap-10">
         {Object.keys(gameLocalStorage).length !== 0 &&
           gameLocalStorage.Character.map((char) => {
+            char.isFound = false;
             return (
               <img
                 src={char.url}
@@ -26,7 +27,7 @@ const GameStart = () => {
             );
           })}
       </div>
-      <section className="flex justify-center items-center px-20 py-10 overflow-auto">
+      <section className="flex justify-center items-center px-20 py-10">
         <Photo game={gameLocalStorage}></Photo>
       </section>
     </>

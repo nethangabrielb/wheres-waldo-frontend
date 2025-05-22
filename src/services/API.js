@@ -2,7 +2,7 @@ const API = () => {
   const url = "http://localhost:5000";
 
   const getGames = async () => {
-    const res = await fetch(`${url}/games`);
+    const res = await fetch(`${url}/photos`);
     if (!res.ok) {
       throw new Error("Error fetching games");
     }
@@ -10,7 +10,26 @@ const API = () => {
     return data.games;
   };
 
-  return { getGames };
+  const validateCoordinates = async (coordinates, characterId, photoId) => {
+    const res = await fetch(`${url}/photos/${photoId}`, {
+      body: JSON.stringify({ characterId, coordinates }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    });
+    if (!res.ok) {
+      throw new Error("Error validating coordinates");
+    }
+
+    if (res.status === 200) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  return { getGames, validateCoordinates };
 };
 
 const server = API();
