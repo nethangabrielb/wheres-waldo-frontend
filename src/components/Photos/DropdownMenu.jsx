@@ -1,10 +1,15 @@
-const DropdownMenu = ({ coordinates, characters }) => {
+const DropdownMenu = ({
+  coordinates,
+  characters,
+  sendCoordinatesValidation,
+}) => {
   return (
     <div
-      className="absolute w-fit h-fit border gap-2 bg-secondary rouned-lg"
+      className="absolute w-fit h-auto border gap-2 bg-secondary rouned-lg top-0 left-0 isolate z-100"
       style={{
-        top: `${coordinates.y + 30}px`,
-        left: `${coordinates.x + 20}px`,
+        transform: `translate(${coordinates.x + 10}px, ${
+          coordinates.y + 10
+        }px)`,
       }}
     >
       {characters.map((char) => {
@@ -14,6 +19,7 @@ const DropdownMenu = ({ coordinates, characters }) => {
             className="w-[50px] border-b hover:backdrop-brightness-90 cursor-pointer"
             src={char.url}
             key={char.id}
+            onClick={sendCoordinatesValidation}
           ></img>
         );
       })}

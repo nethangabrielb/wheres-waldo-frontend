@@ -1,5 +1,6 @@
 import DropdownMenu from "./DropdownMenu";
-import { useState, useEffect } from "react";
+import server from "../../services/API";
+import { useState, useRef } from "react";
 
 const Photo = ({ game }) => {
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -7,21 +8,8 @@ const Photo = ({ game }) => {
     x: null,
     y: null,
   });
-  const [scrollCoordinates, setScrollCoordinates] = useState({
-    x: null,
-    y: null,
-  });
-
-  useEffect(() => {
-    const attachSetterCoordinates = () => {
-      setScrollCoordinates({ x: window.scrollX, y: window.scrollY });
-    };
-    window.addEventListener("scroll", attachSetterCoordinates);
-
-    return () => {
-      window.removeEventListener("scroll", attachSetterCoordinates);
-    };
-  }, []);
+  const [characters, setCharactersValidate] = useState(game.Character);
+  const photoRef = useRef(null);
 
   const handlePhotoClick = (e) => {
     if (openDropdown) {
@@ -31,28 +19,62 @@ const Photo = ({ game }) => {
     }
 
     setClickCoordinates({
-      x: e.clientX,
-      y: e.clientY + scrollCoordinates.y,
+      x: e.nativeEvent.offsetX,
+      y: e.nativeEvent.offsetY,
     });
   };
 
-  console.log(clickCoordinates);
+  const sendCoordinatesValidation = async (e) => {
+    // Get the instrinsic and the rendered w and h of image
+    const photo = photoRef.current;
+    const renderedVal = { w: photo.clientWidth, h: photo.clientHeight };
+    const naturalVal = { w: photo.naturalWidth, h: photo.naturalHeight };
+
+    // Divide click coordinates with rendered coordinates
+    // and multiply with natural values to normalize coordinates
+    const normalizedX = (clickCoordinates.x / renderedVal.w) * naturalVal.w;
+    const normalizedY = (clickCoordinates.y / renderedVal.h) * naturalVal.h;
+
+    const normalizedCoordinates = {
+      x: normalizedX,
+      y: normalizedY,
+    };
+
+    // Validate result
+    const validationResult = await server.validateCoordinates(
+      normalizedCoordinates,
+      e.target.id,
+      game.id
+    );
+
+    if (validationResult) {
+      const updatedCharactersStatus = characters.map((char) => {
+        if (char.id == e.target.id) {
+          return { ...char, isFound: true };
+        } else {
+          return char;
+        }
+      });
+    }
+  };
 
   return (
-    <>
+    <div className="relative">
       <img
         src={game.url}
         alt="Where's Waldo photo"
         onClick={handlePhotoClick}
-        className="w-full max-w-[1200px] h-full rounded-lg"
+        className="w-full max-w-[1400px] h-full rounded-lg"
+        ref={photoRef}
       />
       {openDropdown && (
         <DropdownMenu
           coordinates={clickCoordinates}
           characters={game.Character}
+          sendCoordinatesValidation={sendCoordinatesValidation}
         ></DropdownMenu>
       )}
-    </>
+    </div>
   );
 };
 

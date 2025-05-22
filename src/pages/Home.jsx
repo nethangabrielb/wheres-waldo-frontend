@@ -21,7 +21,7 @@ const Home = () => {
   return (
     <div className="h-full flex flex-col bg-main text-tertiary">
       <Header></Header>
-      <main className="h-fit flex flex-col items-center text-4xl p-10 gap-10 bg-main text-tertiary">
+      <main className="flex flex-col items-center text-4xl p-10 gap-10 bg-main text-tertiary flex-auto">
         <Outlet context={{ games, game, setGame, loading }} />
       </main>
       <Footer></Footer>
