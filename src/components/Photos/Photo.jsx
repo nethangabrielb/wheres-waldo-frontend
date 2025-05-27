@@ -55,6 +55,7 @@ const Photo = ({ game }) => {
           return char;
         }
       });
+      setCharactersValidate(updatedCharactersStatus);
     }
   };
 
