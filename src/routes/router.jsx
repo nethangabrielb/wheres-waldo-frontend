@@ -18,11 +18,11 @@ const router = createBrowserRouter([
         element: <GameStart />,
       },
       {
-        path: "/groovearmada",
+        path: "/5days",
         element: <GameStart />,
       },
       {
-        path: "/technocity",
+        path: "/universe11",
         element: <GameStart />,
       },
     ],
