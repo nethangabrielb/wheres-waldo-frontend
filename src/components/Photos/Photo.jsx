@@ -2,13 +2,13 @@ import DropdownMenu from "./DropdownMenu";
 import server from "../../services/API";
 import { useState, useRef } from "react";
 
-const Photo = ({ game }) => {
+const Photo = ({ game, setGame }) => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [clickCoordinates, setClickCoordinates] = useState({
     x: null,
     y: null,
   });
-  const [characters, setCharactersValidate] = useState(game.Character);
+  const [isCoordinateCorrect, setIsCoordinateCorrect] = useState(null);
   const photoRef = useRef(null);
 
   const handlePhotoClick = (e) => {
@@ -48,14 +48,26 @@ const Photo = ({ game }) => {
     );
 
     if (validationResult) {
-      const updatedCharactersStatus = characters.map((char) => {
+      const updatedCharactersStatus = game.Character.map((char) => {
         if (char.id == e.target.id) {
           return { ...char, isFound: true };
         } else {
           return char;
         }
       });
-      setCharactersValidate(updatedCharactersStatus);
+      let gameUpdatedCharacters = game;
+      gameUpdatedCharacters.Character = updatedCharactersStatus;
+      setGame(gameUpdatedCharacters);
+      setOpenDropdown(false);
+      setIsCoordinateCorrect(true);
+      setTimeout(() => {
+        setIsCoordinateCorrect(null);
+      }, 3000);
+    } else {
+      setIsCoordinateCorrect(false);
+      setTimeout(() => {
+        setIsCoordinateCorrect(null);
+      }, 1000);
     }
   };
 
@@ -73,7 +85,15 @@ const Photo = ({ game }) => {
           coordinates={clickCoordinates}
           characters={game.Character}
           sendCoordinatesValidation={sendCoordinatesValidation}
+          setIsCoordinateCorrect={setIsCoordinateCorrect}
         ></DropdownMenu>
+      )}
+      {isCoordinateCorrect ? (
+        <audio src="correct.mp3" autoPlay></audio>
+      ) : (
+        isCoordinateCorrect === false && (
+          <audio src="wrong.mp3" autoPlay></audio>
+        )
       )}
     </div>
   );

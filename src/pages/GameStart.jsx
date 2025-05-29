@@ -7,7 +7,8 @@ const GameStart = () => {
   const [gameLocalStorage, setGame] = useState(game);
 
   if (Object.keys(gameLocalStorage).length === 0) {
-    setGame(JSON.parse(localStorage.getItem("game")));
+    const localStorageData = JSON.parse(localStorage.getItem("game"));
+    setGame(localStorageData);
   }
 
   return (
@@ -16,7 +17,9 @@ const GameStart = () => {
       <div className="flex gap-10">
         {Object.keys(gameLocalStorage).length !== 0 &&
           gameLocalStorage.Character.map((char) => {
-            char.isFound = false;
+            if (char.isFound === undefined) {
+              char.isFound = false;
+            }
             return (
               <img
                 src={char.url}
@@ -28,7 +31,7 @@ const GameStart = () => {
           })}
       </div>
       <section className="flex justify-center items-center px-20 py-10">
-        <Photo game={gameLocalStorage}></Photo>
+        <Photo game={gameLocalStorage} setGame={setGame}></Photo>
       </section>
     </>
   );

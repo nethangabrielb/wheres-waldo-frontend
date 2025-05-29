@@ -2,6 +2,7 @@ const DropdownMenu = ({
   coordinates,
   characters,
   sendCoordinatesValidation,
+  setIsCoordinateCorrect,
 }) => {
   return (
     <div
@@ -16,10 +17,14 @@ const DropdownMenu = ({
         return (
           <img
             id={char.id}
-            className="w-[50px] border-b hover:backdrop-brightness-90 cursor-pointer"
+            className={`${
+              char.isFound
+                ? "select-none backdrop-brightness-50 cursor-default"
+                : "cursor-pointer hover:backdrop-brightness-90"
+            } w-[50px] border-b`}
             src={char.url}
             key={char.id}
-            onClick={sendCoordinatesValidation}
+            onClick={!char.isFound && sendCoordinatesValidation}
           ></img>
         );
       })}

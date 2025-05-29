@@ -18,9 +18,6 @@ const API = () => {
       },
       method: "POST",
     });
-    if (!res.ok) {
-      throw new Error("Error validating coordinates");
-    }
 
     if (res.status === 200) {
       return true;
