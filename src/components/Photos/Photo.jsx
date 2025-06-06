@@ -2,7 +2,7 @@ import DropdownMenu from "./DropdownMenu";
 import server from "../../services/API";
 import { useState, useRef } from "react";
 
-const Photo = ({ game, setGame }) => {
+const Photo = ({ game, setGame, setAllCharactersFound }) => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [clickCoordinates, setClickCoordinates] = useState({
     x: null,
@@ -63,6 +63,14 @@ const Photo = ({ game, setGame }) => {
       setTimeout(() => {
         setIsCoordinateCorrect(null);
       }, 3000);
+
+      // Check if all characters are found
+      // By filtering the updated characters array and filtering by isFound attribute
+      // So if the length is 3, it means all 3 are found, and we stop the timer.
+      const isAllFound = updatedCharactersStatus.filter((char) => char.isFound);
+      if (isAllFound.length === 3) {
+        setAllCharactersFound(true);
+      }
     } else {
       setIsCoordinateCorrect(false);
       setTimeout(() => {

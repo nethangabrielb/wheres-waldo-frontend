@@ -2,7 +2,6 @@ const DropdownMenu = ({
   coordinates,
   characters,
   sendCoordinatesValidation,
-  setIsCoordinateCorrect,
 }) => {
   return (
     <div
@@ -24,7 +23,7 @@ const DropdownMenu = ({
             } w-[50px] border-b`}
             src={char.url}
             key={char.id}
-            onClick={!char.isFound && sendCoordinatesValidation}
+            onClick={!char.isFound ? sendCoordinatesValidation : undefined}
           ></img>
         );
       })}
