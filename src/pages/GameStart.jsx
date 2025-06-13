@@ -3,18 +3,20 @@ import Photo from "../components/Photos/Photo";
 import { useOutletContext } from "react-router-dom";
 import { intervalToDuration } from "date-fns";
 import useTimer from "easytimer-react-hook";
+import server from "../services/API";
 
 const GameStart = () => {
   let { game } = useOutletContext();
   const [gameLocalStorage, setGame] = useState(game);
   const [allCharactersFound, setAllCharactersFound] = useState(false);
-  const [userName, setUserName] = useState("");
-  const formRef = useRef(null);
-  const inputRef = useRef(null);
+  const [username, setUserName] = useState("");
   const [timerValue, setTimerValue] = useState({
     seconds: null,
     formatted: null,
   });
+  const [error, setError] = useState("");
+  const formRef = useRef(null);
+  const inputRef = useRef(null);
 
   const [timer, isTimerAchieved] = useTimer({});
 
@@ -28,8 +30,10 @@ const GameStart = () => {
       // Set the timer value and set game to over
       const duration = intervalToDuration({
         start: 0,
-        end: timeValue.seconds * 1000,
+        end: (timeValue.seconds + timeValue.minutes * 60) * 1000,
       });
+
+      console.log(duration);
 
       const zeroPad = (num) => (num ? String(num).padStart(2, "0") : "00");
       setTimerValue({
@@ -43,12 +47,29 @@ const GameStart = () => {
       }
       timer.stop();
     }
+    return () => {
+      document.body.style.overflow = "scroll";
+    };
   }, [allCharactersFound]);
 
   if (Object.keys(gameLocalStorage).length === 0) {
     const localStorageData = JSON.parse(localStorage.getItem("game"));
     setGame(localStorageData);
   }
+
+  // Submit user name and score time and
+  // Redirect to leaderboard of game setting
+  const submitUserHandler = async () => {
+    const submitSuccessful = await server.postScore(
+      gameLocalStorage.id,
+      username,
+      timerValue.seconds,
+      timerValue.formatted
+    );
+    if (typeof submitSuccessful === "object") {
+      setError(submitSuccessful.errors[0].msg);
+    }
+  };
 
   return (
     <>
@@ -83,10 +104,11 @@ const GameStart = () => {
         <form
           className="text-lg border p-4 flex flex-col items-center gap-2 rounded-lg absolute w-fit h-fit inset-0 m-auto bg-main"
           ref={formRef}
+          action={submitUserHandler}
         >
           <p>
-            Congratulations! Your score is {console.log(timerValue)}
-            <span className="font-bold">{timerValue.formatted}</span>
+            Congratulations! Your score is
+            <span className="font-bold"> {timerValue.formatted}</span>
           </p>
           <p className="text-[14px]">
             Enter name to record your score in the leaderboard
@@ -95,12 +117,16 @@ const GameStart = () => {
             type="text"
             className="border p-1"
             ref={inputRef}
-            value={userName}
+            value={username}
             onChange={(e) => setUserName(e.target.value)}
           />
-          <button className="cursor-pointer py-1 border rounded-lg px-8 bg-secondary">
+          <button
+            className="cursor-pointer py-1 border rounded-lg px-8 bg-secondary"
+            type="submit"
+          >
             Submit
           </button>
+          {error && <p className="text-red-400">{error}</p>}
         </form>
       )}
     </>

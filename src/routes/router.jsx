@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import GameStart from "../pages/GameStart";
 import HomeSelection from "../components/Home/HomeSelection";
+import LeaderBoard from "../pages/LeaderBoard";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/universe11",
         element: <GameStart />,
+      },
+      {
+        path: "/leaderboards",
+        element: <LeaderBoard />,
       },
     ],
   },

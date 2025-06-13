@@ -21,12 +21,29 @@ const API = () => {
 
     if (res.status === 200) {
       return true;
+    }
+  };
+
+  const postScore = async (photoId, name, score, formatted) => {
+    const res = await fetch(`${url}/photos/${photoId}/users`, {
+      body: JSON.stringify({ photoId, name, score, formatted }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    });
+
+    if (res.status === 200) {
+      return true;
+    } else if (res.status === 500) {
+      const errMessage = await res.json();
+      return errMessage;
     } else {
       return false;
     }
   };
 
-  return { getGames, validateCoordinates };
+  return { getGames, validateCoordinates, postScore };
 };
 
 const server = API();

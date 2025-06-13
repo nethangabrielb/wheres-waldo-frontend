@@ -62,7 +62,7 @@ const Photo = ({ game, setGame, setAllCharactersFound }) => {
       setIsCoordinateCorrect(true);
       setTimeout(() => {
         setIsCoordinateCorrect(null);
-      }, 3000);
+      }, 1000);
 
       // Check if all characters are found
       // By filtering the updated characters array and filtering by isFound attribute
