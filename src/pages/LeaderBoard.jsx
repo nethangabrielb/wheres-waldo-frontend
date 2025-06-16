@@ -1,8 +1,15 @@
 import Board from "../components/Leaderboards/Board";
+import useGames from "../hooks/useGames";
 import { useOutletContext } from "react-router-dom";
+import { useEffect } from "react";
 
 const LeaderBoard = () => {
-  let { games } = useOutletContext();
+  const { games, loading } = useGames();
+  const { setGames } = useOutletContext();
+
+  useEffect(() => {
+    setGames(games);
+  }, [games]);
 
   return (
     <>

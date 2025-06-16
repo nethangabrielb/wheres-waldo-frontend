@@ -3,26 +3,17 @@ import server from "../services/API";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import { Outlet } from "react-router-dom";
+import useGames from "../hooks/useGames";
 
 const Home = () => {
-  const [games, setGames] = useState([]);
+  const { games, setGames, loading, setLoading } = useGames();
   const [game, setGame] = useState({});
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const getAllGames = async () => {
-      const gamesData = await server.getGames();
-      setGames(gamesData);
-      setLoading(false);
-    };
-    getAllGames();
-  }, []);
 
   return (
     <div className="h-full flex flex-col bg-main text-tertiary">
       <Header></Header>
       <main className="flex flex-col items-center text-4xl p-10 gap-10 bg-main text-tertiary flex-auto relative">
-        <Outlet context={{ games, game, setGame, loading }} />
+        <Outlet context={{ games, game, setGame, setGames, loading }} />
       </main>
       <Footer></Footer>
     </div>

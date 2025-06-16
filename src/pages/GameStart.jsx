@@ -27,15 +27,12 @@ const GameStart = () => {
     } else {
       // Get the timer values
       const timeValue = timer.getTimeValues();
-      console.log(timeValue);
 
       // Set the timer value and set game to over
       const duration = intervalToDuration({
         start: 0,
         end: (timeValue.seconds + timeValue.minutes * 60) * 1000,
       });
-
-      console.log(duration);
 
       const zeroPad = (num) => (num ? String(num).padStart(2, "0") : "00");
       setTimerValue({
@@ -51,6 +48,7 @@ const GameStart = () => {
         document.body.style.overflow = "hidden";
       }
       timer.stop();
+      setGame(JSON.parse(localStorage.getItem("game")));
     }
     return () => {
       document.body.style.overflow = "auto";
@@ -71,10 +69,12 @@ const GameStart = () => {
       timerValue.seconds,
       timerValue.formatted
     );
+    console.log(submitSuccessful);
     if (typeof submitSuccessful === "object") {
       setError(submitSuccessful.errors[0].msg);
+    } else {
+      navigate(`/leaderboard/${gameLocalStorage.id}`);
     }
-    navigate(`/leaderboard/${gameLocalStorage.id}`);
   };
 
   return (

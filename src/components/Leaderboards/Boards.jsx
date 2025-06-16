@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Board from "./Board";
-import useGame from "./useGame";
+import useGame from "../../hooks/useGame";
 import Button from "../Button";
 
 const BoardDisplay = ({ game }) => {
@@ -24,8 +24,7 @@ const BoardDisplay = ({ game }) => {
 };
 
 const Universe11Board = () => {
-  const game = useGame(3);
-  console.log(game);
+  const { game } = useGame(3);
 
   return (
     <div className="w-[350px] h-[500px] flex flex-col items-center gap-10 bg-blue-300">
@@ -35,8 +34,7 @@ const Universe11Board = () => {
 };
 
 const FiveDaysBoard = () => {
-  const game = useGame(2);
-  console.log(game);
+  const { game } = useGame(2);
 
   return (
     <div className="w-[350px] h-[500px] flex flex-col items-center gap-10">
@@ -46,7 +44,7 @@ const FiveDaysBoard = () => {
 };
 
 const GamerVerseBoard = () => {
-  const game = useGame(1);
+  const { game } = useGame(1);
   console.log(game);
 
   return (
