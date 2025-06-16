@@ -3,6 +3,12 @@ import App from "../App";
 import GameStart from "../pages/GameStart";
 import HomeSelection from "../components/Home/HomeSelection";
 import LeaderBoard from "../pages/LeaderBoard";
+import Board from "../components/Leaderboards/Board";
+import {
+  Universe11Board,
+  GamerVerseBoard,
+  FiveDaysBoard,
+} from "../components/Leaderboards/Boards";
 
 const router = createBrowserRouter([
   {
@@ -27,8 +33,20 @@ const router = createBrowserRouter([
         element: <GameStart />,
       },
       {
-        path: "/leaderboards",
+        path: "/leaderboard",
         element: <LeaderBoard />,
+      },
+      {
+        path: "/leaderboard/1",
+        element: <GamerVerseBoard />,
+      },
+      {
+        path: "/leaderboard/2",
+        element: <FiveDaysBoard />,
+      },
+      {
+        path: "/leaderboard/3",
+        element: <Universe11Board />,
       },
     ],
   },

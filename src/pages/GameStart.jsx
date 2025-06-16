@@ -4,6 +4,7 @@ import { useOutletContext } from "react-router-dom";
 import { intervalToDuration } from "date-fns";
 import useTimer from "easytimer-react-hook";
 import server from "../services/API";
+import { useNavigate } from "react-router-dom";
 
 const GameStart = () => {
   let { game } = useOutletContext();
@@ -17,7 +18,7 @@ const GameStart = () => {
   const [error, setError] = useState("");
   const formRef = useRef(null);
   const inputRef = useRef(null);
-
+  const navigate = useNavigate();
   const [timer, isTimerAchieved] = useTimer({});
 
   useEffect(() => {
@@ -26,6 +27,7 @@ const GameStart = () => {
     } else {
       // Get the timer values
       const timeValue = timer.getTimeValues();
+      console.log(timeValue);
 
       // Set the timer value and set game to over
       const duration = intervalToDuration({
@@ -37,7 +39,10 @@ const GameStart = () => {
 
       const zeroPad = (num) => (num ? String(num).padStart(2, "0") : "00");
       setTimerValue({
-        seconds: timeValue.seconds,
+        seconds:
+          timeValue.minutes > 0
+            ? timeValue.seconds + timeValue.minutes * 60
+            : timeValue.seconds,
         formatted: `${zeroPad(duration.minutes)}:${zeroPad(duration.seconds)}`,
       });
       if (allCharactersFound) {
@@ -48,7 +53,7 @@ const GameStart = () => {
       timer.stop();
     }
     return () => {
-      document.body.style.overflow = "scroll";
+      document.body.style.overflow = "auto";
     };
   }, [allCharactersFound]);
 
@@ -69,6 +74,7 @@ const GameStart = () => {
     if (typeof submitSuccessful === "object") {
       setError(submitSuccessful.errors[0].msg);
     }
+    navigate(`/leaderboard/${gameLocalStorage.id}`);
   };
 
   return (

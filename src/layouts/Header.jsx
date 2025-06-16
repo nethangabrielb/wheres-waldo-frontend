@@ -8,7 +8,7 @@ const Header = () => {
           Eye Spy 👁️
         </span>
       </Link>
-      <Link to="/leaderboards">Leaderboards</Link>
+      <Link to="/leaderboard">Leaderboard</Link>
     </header>
   );
 };
