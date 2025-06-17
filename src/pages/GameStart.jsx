@@ -29,14 +29,6 @@ const GameStart = () => {
           if (char.isFound === undefined || char.isFound === true) {
             char.isFound = false;
           }
-          return (
-            <img
-              src={char.url}
-              key={char.id}
-              id={char.id}
-              className="sm:w-[58px] w-[34px] h-auto"
-            />
-          );
         });
     } else {
       // Get the timer values
@@ -62,7 +54,6 @@ const GameStart = () => {
         document.body.style.overflow = "hidden";
       }
       timer.stop();
-      localStorage.removeItem("game");
       setGame({});
     }
     return () => {
