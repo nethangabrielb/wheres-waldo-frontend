@@ -3,18 +3,18 @@ import App from "../App";
 import GameStart from "../pages/GameStart";
 import HomeSelection from "../components/Home/HomeSelection";
 import LeaderBoard from "../pages/LeaderBoard";
-import Board from "../components/Leaderboards/Board";
 import {
   Universe11Board,
   GamerVerseBoard,
   FiveDaysBoard,
 } from "../components/Leaderboards/Boards";
+import Error from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-
+    errorElement: <Error />,
     children: [
       {
         index: true,
