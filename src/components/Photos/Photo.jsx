@@ -2,7 +2,7 @@ import DropdownMenu from "./DropdownMenu";
 import server from "../../services/API";
 import { useState, useRef } from "react";
 
-const Photo = ({ game, setGame, setAllCharactersFound }) => {
+const Photo = ({ game, setGameLocalStorage, setAllCharactersFound }) => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [clickCoordinates, setClickCoordinates] = useState({
     x: null,
@@ -57,7 +57,7 @@ const Photo = ({ game, setGame, setAllCharactersFound }) => {
       });
       let gameUpdatedCharacters = game;
       gameUpdatedCharacters.Character = updatedCharactersStatus;
-      setGame(gameUpdatedCharacters);
+      setGameLocalStorage(gameUpdatedCharacters);
       setOpenDropdown(false);
       setIsCoordinateCorrect(true);
       setTimeout(() => {
@@ -80,12 +80,12 @@ const Photo = ({ game, setGame, setAllCharactersFound }) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative h-full">
       <img
         src={game.url}
         alt="Where's Waldo photo"
         onClick={handlePhotoClick}
-        className="w-full max-w-[1400px] h-full rounded-lg"
+        className="w-full h-full max-w-[1400px] rounded-lg"
         ref={photoRef}
       />
       {openDropdown && (

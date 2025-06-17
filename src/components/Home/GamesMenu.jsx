@@ -11,7 +11,7 @@ const GamesMenu = ({ game, loading, setGame }) => {
 
   return (
     <section
-      className="w-[300px] h-fit border rounded-4xl hover:-translate-y-2 transition-all cursor-pointer"
+      className="w-[300px] h-fit border rounded-4xl hover:scale-105 hover:shadow-md transition-all cursor-pointer"
       onClick={handleRedirect}
     >
       <img

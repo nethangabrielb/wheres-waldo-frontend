@@ -14,7 +14,7 @@ const LeaderBoard = () => {
   return (
     <>
       <h1>Leaderboard</h1>
-      <div className="grid grid-cols-3 justify-center w-full gap-10">
+      <div className="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))]  w-full gap-10">
         {games.map((game) => {
           console.log(game);
           return <Board game={game} key={game.id}></Board>;

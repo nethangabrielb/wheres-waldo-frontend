@@ -27,7 +27,7 @@ const Universe11Board = () => {
   const { game } = useGame(3);
 
   return (
-    <div className="w-[350px] h-[500px] flex flex-col items-center gap-10 bg-blue-300">
+    <div className="w-[350px] h-[500px] flex flex-col items-center gap-10">
       {game && <BoardDisplay game={game}></BoardDisplay>}
     </div>
   );

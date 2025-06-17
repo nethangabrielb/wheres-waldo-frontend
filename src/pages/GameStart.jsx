@@ -7,8 +7,8 @@ import server from "../services/API";
 import { useNavigate } from "react-router-dom";
 
 const GameStart = () => {
-  let { game } = useOutletContext();
-  const [gameLocalStorage, setGame] = useState(game);
+  let { game, setGame } = useOutletContext();
+  const [gameLocalStorage, setGameLocalStorage] = useState(game);
   const [allCharactersFound, setAllCharactersFound] = useState(false);
   const [username, setUserName] = useState("");
   const [timerValue, setTimerValue] = useState({
@@ -24,6 +24,20 @@ const GameStart = () => {
   useEffect(() => {
     if (allCharactersFound === false) {
       timer.start();
+      Object.keys(gameLocalStorage).length !== 0 &&
+        gameLocalStorage.Character.map((char) => {
+          if (char.isFound === undefined || char.isFound === true) {
+            char.isFound = false;
+          }
+          return (
+            <img
+              src={char.url}
+              key={char.id}
+              id={char.id}
+              className="sm:w-[58px] w-[34px] h-auto"
+            />
+          );
+        });
     } else {
       // Get the timer values
       const timeValue = timer.getTimeValues();
@@ -48,7 +62,8 @@ const GameStart = () => {
         document.body.style.overflow = "hidden";
       }
       timer.stop();
-      setGame(JSON.parse(localStorage.getItem("game")));
+      localStorage.removeItem("game");
+      setGame({});
     }
     return () => {
       document.body.style.overflow = "auto";
@@ -57,7 +72,7 @@ const GameStart = () => {
 
   if (Object.keys(gameLocalStorage).length === 0) {
     const localStorageData = JSON.parse(localStorage.getItem("game"));
-    setGame(localStorageData);
+    setGameLocalStorage(localStorageData);
   }
 
   // Submit user name and score time and
@@ -69,7 +84,6 @@ const GameStart = () => {
       timerValue.seconds,
       timerValue.formatted
     );
-    console.log(submitSuccessful);
     if (typeof submitSuccessful === "object") {
       setError(submitSuccessful.errors[0].msg);
     } else {
@@ -79,30 +93,27 @@ const GameStart = () => {
 
   return (
     <>
-      <p>Characters to find:</p>
+      <p className="sm:text-4xl text-xl">Characters to find:</p>
       <div className="flex gap-10">
         {Object.keys(gameLocalStorage).length !== 0 &&
           gameLocalStorage.Character.map((char) => {
-            if (char.isFound === undefined) {
-              char.isFound = false;
-            }
             return (
               <img
                 src={char.url}
                 key={char.id}
                 id={char.id}
-                className="w-[58px] h-auto"
+                className="sm:w-[58px] w-[34px] h-auto"
               />
             );
           })}
       </div>
-      <div className="p-4 border rounded-lg px-8">
+      <div className="sm:p-4 border rounded-lg sm:px-8 px-2 p-2 sm:text-4xl text-xl">
         {timer.getTimeValues().minutes}:{timer.getTimeValues().seconds}
       </div>
-      <section className="flex justify-center items-center px-20 py-10">
+      <section className="flex justify-center items-center lg:px-10 sm:py-10 h-full">
         <Photo
           game={gameLocalStorage}
-          setGame={setGame}
+          setGameLocalStorage={setGameLocalStorage}
           setAllCharactersFound={setAllCharactersFound}
         ></Photo>
       </section>

@@ -8,7 +8,7 @@ const HomeSelection = () => {
     <>
       <h1>Select a setting</h1>
       <hr />
-      <section className="grid grid-cols-3 gap-10">
+      <section className="flex flex-wrap justify-center gap-10">
         {games &&
           games.map((game) => {
             return (

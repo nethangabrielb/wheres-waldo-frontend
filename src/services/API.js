@@ -16,7 +16,6 @@ const API = () => {
       throw new Error("Error fetching game");
     }
     const game = await res.json();
-    console.log(game);
     return game;
   };
 

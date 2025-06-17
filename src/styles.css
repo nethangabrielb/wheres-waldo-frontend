@@ -18,14 +18,9 @@ body {
   --color-tertiary: #74512d;
   --color-last: #4e1f00;
 
-  --animate-sliding: sliding 1s linear infinite;
+  --shadow-md: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  --shadow-board: 10px 10px 0px 1px rgba(78, 31, 0, 0.75);
+  --shadow-board-hover: 20px 20px 0px 1px rgba(78, 31, 0, 0.75);
 
-  @keyframes sliding {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translate(100%);
-    }
-  }
+  --grid-board: repeat(autofill, minmax(300px, 1fr));
 }
