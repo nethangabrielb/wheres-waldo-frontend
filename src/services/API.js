@@ -1,5 +1,5 @@
 const API = () => {
-  const url = "http://localhost:5000";
+  const url = "https://wheres-waldo-backend-jwgd.onrender.com";
 
   const getGames = async () => {
     const res = await fetch(`${url}/photos`);
