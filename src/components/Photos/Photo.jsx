@@ -10,6 +10,7 @@ const Photo = ({ game, setGameLocalStorage, setAllCharactersFound }) => {
   });
   const [isCoordinateCorrect, setIsCoordinateCorrect] = useState(null);
   const photoRef = useRef(null);
+  const audioRef = useRef(null);
 
   const handlePhotoClick = (e) => {
     if (openDropdown) {
@@ -63,6 +64,7 @@ const Photo = ({ game, setGameLocalStorage, setAllCharactersFound }) => {
       setTimeout(() => {
         setIsCoordinateCorrect(null);
       }, 1000);
+      audioRef.current.play();
 
       // Check if all characters are found
       // By filtering the updated characters array and filtering by isFound attribute
@@ -76,6 +78,7 @@ const Photo = ({ game, setGameLocalStorage, setAllCharactersFound }) => {
       setTimeout(() => {
         setIsCoordinateCorrect(null);
       }, 1000);
+      audioRef.current.play();
     }
   };
 
@@ -97,10 +100,10 @@ const Photo = ({ game, setGameLocalStorage, setAllCharactersFound }) => {
         ></DropdownMenu>
       )}
       {isCoordinateCorrect ? (
-        <audio src="correct.mp3" autoPlay></audio>
+        <audio src="correct.mp3" ref={audioRef} autoPlay></audio>
       ) : (
         isCoordinateCorrect === false && (
-          <audio src="wrong.mp3" autoPlay></audio>
+          <audio src="wrong.mp3" ref={audioRef} autoPlay></audio>
         )
       )}
     </div>
