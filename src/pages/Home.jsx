@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
-import server from "../services/API";
+import { useState } from "react";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import { Outlet } from "react-router-dom";
 import useGames from "../hooks/useGames";
 
 const Home = () => {
-  const { games, setGames, loading, setLoading } = useGames();
+  const { games, setGames, loading } = useGames();
   const [game, setGame] = useState({});
 
   return (

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const GamesMenu = ({ game, loading, setGame }) => {
+const GamesMenu = ({ game, setGame }) => {
   const navigate = useNavigate();
 
   const handleRedirect = () => {

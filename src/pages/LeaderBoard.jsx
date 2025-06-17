@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router-dom";
 import { useEffect } from "react";
 
 const LeaderBoard = () => {
-  const { games, loading } = useGames();
+  const { games } = useGames();
   const { setGames } = useOutletContext();
 
   useEffect(() => {
