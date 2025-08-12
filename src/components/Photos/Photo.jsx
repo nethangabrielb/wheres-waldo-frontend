@@ -56,9 +56,10 @@ const Photo = ({ game, setGameLocalStorage, setAllCharactersFound }) => {
           return char;
         }
       });
-      let gameUpdatedCharacters = game;
-      gameUpdatedCharacters.Character = updatedCharactersStatus;
-      setGameLocalStorage(gameUpdatedCharacters);
+      setGameLocalStorage({
+        ...game,
+        Character: updatedCharactersStatus,
+      });
       setOpenDropdown(false);
       setIsCoordinateCorrect(true);
       setTimeout(() => {
